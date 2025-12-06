@@ -2,40 +2,75 @@
    COMIAL PRO — RENDER ENGINE
 ============================================================ */
 
-function renderBaseLayer(theme, shape, thickness, radius, speed) {
-
+function renderAllLayers(theme) {
     const preview = document.getElementById("preview");
+    preview.innerHTML = ""; // limpa
 
-    preview.style.border = `${thickness}px solid transparent`;
-    preview.style.borderRadius = `${radius}px`;
-    preview.style.animationDuration = `${speed}s`;
+    const shape = document.getElementById("shape").value;
+    const stroke = document.getElementById("stroke").value;
+    const radius = document.getElementById("radius").value;
 
-    preview.style.backgroundImage = `
-        linear-gradient(90deg, 
-            ${theme.c1}, 
-            ${theme.c2}, 
-            ${theme.c3}, 
-            ${theme.c4},
-            ${theme.c1}
-        )
+    const width = preview.clientWidth;
+    const height = preview.clientHeight;
+
+    let el = document.createElement("div");
+    el.className = "shape-layer";
+
+    /* ============================================================
+       SHAPES SUPORTADOS
+    ============================================================ */
+    if (shape === "rect") {
+        el.style.width = width + "px";
+        el.style.height = height + "px";
+        el.style.borderRadius = radius + "px";
+
+    } else if (shape === "square") {
+        const size = Math.min(width, height);
+        el.style.width = size + "px";
+        el.style.height = size + "px";
+        el.style.borderRadius = radius + "px";
+        el.style.margin = "auto";
+
+    } else if (shape === "line-h") {
+        el.style.width = width + "px";
+        el.style.height = stroke + "px";
+        el.style.borderRadius = radius + "px";
+        el.style.margin = "auto";
+
+    } else if (shape === "line-v") {
+        el.style.width = stroke + "px";
+        el.style.height = height + "px";
+        el.style.borderRadius = radius + "px";
+        el.style.margin = "auto";
+    }
+
+    /* ============================================================
+       GRADIENTE
+    ============================================================ */
+
+    el.style.background = `
+        linear-gradient(90deg,
+        ${theme.c1},
+        ${theme.c2},
+        ${theme.c3},
+        ${theme.c4})
     `;
-}
 
-/* ------ Glass Effect ------ */
-function applyGlassEffect() {
-    const preview = $("preview");
-    preview.classList.add("glass-effect");
-}
+    /* ============================================================
+       SOMBRA / EFEITOS
+    ============================================================ */
 
-/* ------ Double Border ------ */
-function applyDoubleBorder() {
-    const preview = $("preview");
-    preview.classList.add("double-border");
-}
+    if (document.getElementById("fxTokyo").checked) {
+        el.classList.add("tokyo-glow");
+    }
 
-/* ------ Tokyo Glow ------ */
-function applyTokyoGlow(theme) {
-    const preview = $("preview");
-    preview.style.setProperty("--tokyo-color", theme.glow);
-    preview.classList.add("tokyo-breath");
+    if (document.getElementById("fxGlass").checked) {
+        el.classList.add("glass-panel");
+    }
+
+    if (document.getElementById("fxDouble").checked) {
+        el.classList.add("double-border");
+    }
+
+    preview.appendChild(el);
 }
