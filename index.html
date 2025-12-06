@@ -15,13 +15,16 @@
 
 <body>
 
-<!-- SIDEBAR UI PRO -->
+<!-- BOTÃO MOBILE -->
+<button id="mobileToggle" class="mobile-toggle">☰</button>
+
+<!-- SIDEBAR -->
 <div class="sidebar">
 
     <h1 class="logo">COMIAL<span>PRO</span></h1>
 
-    <!-- IA MODULE -->
-    <div class="module">
+    <!-- IA: GERAR TEMA -->
+    <div class="module glass-panel">
         <h2 class="module-title">🎨 Gerador IA (Cores)</h2>
 
         <button id="generateAI" class="btn">Gerar Tema IA</button>
@@ -29,8 +32,19 @@
         <div id="themePreview" class="theme-preview"></div>
     </div>
 
-    <!-- BORDER CONTROL MODULE -->
-    <div class="module">
+    <!-- PRESETS PRO -->
+    <div class="module glass-panel">
+        <h2 class="module-title">🎛️ Presets PRO</h2>
+
+        <div id="presetsGrid" class="presets-grid"></div>
+
+        <button id="randomTokyo" class="btn">🎌 Tokyo Aleatório</button>
+        <button id="randomVapor" class="btn">🌅 Vaporwave</button>
+        <button id="randomGold" class="btn">✨ Gold Luxury</button>
+    </div>
+
+    <!-- CONTROLE DA BORDA -->
+    <div class="module glass-panel">
         <h2 class="module-title">🖼 Bordas</h2>
 
         <label>Forma</label>
@@ -51,8 +65,8 @@
         <input type="range" id="speed" min="1" max="30" value="12">
     </div>
 
-    <!-- EFFECTS MODULE -->
-    <div class="module">
+    <!-- EFEITOS -->
+    <div class="module glass-panel">
         <h2 class="module-title">✨ Efeitos</h2>
 
         <label><input type="checkbox" id="fxGlass"> Glass Effect</label>
@@ -61,8 +75,8 @@
         <label><input type="checkbox" id="fxParticles"> Partículas</label>
     </div>
 
-    <!-- EXPORT MODULE -->
-    <div class="module">
+    <!-- EXPORTAÇÃO -->
+    <div class="module glass-panel">
         <h2 class="module-title">🔗 Export</h2>
 
         <button id="exportViewer" class="btn">Gerar Link Viewer</button>
@@ -76,12 +90,12 @@
 
 </div>
 
-<!-- PREVIEW AREA -->
+<!-- ÁREA DE PREVIEW -->
 <div class="preview-area">
     <div id="preview"></div>
 </div>
 
-<!-- IA SCRIPTS -->
+<!-- SCRIPTS IA -->
 <script src="ai/themes-ai.js"></script>
 <script src="ai/smart-color.js"></script>
 <script src="ai/adaptive-glow.js"></script>
@@ -93,11 +107,21 @@
 <script src="engine/layers.js"></script>
 <script src="engine/renderer.js"></script>
 
-<!-- CONTROLLER -->
+<!-- PRESETS -->
+<script src="presets.js"></script>
+
+<!-- CONTROLADOR PRINCIPAL -->
 <script src="script.js"></script>
 
-<!-- PACK EXPORTER -->
+<!-- EXPORT PACK -->
 <script src="exporter.js"></script>
+
+<!-- SCRIPT MOBILE (NOVIDADE) -->
+<script>
+document.getElementById("mobileToggle").onclick = () => {
+    document.querySelector(".sidebar").classList.toggle("open");
+};
+</script>
 
 </body>
 </html>
