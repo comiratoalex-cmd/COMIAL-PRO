@@ -1,76 +1,117 @@
 /* ============================================================
-   COMIAL PRO — RENDER ENGINE
+   COMIAL PRO — RENDER ENGINE FINAL
+   Responsável por desenhar o shape + efeitos + gradiente
 ============================================================ */
 
 function renderAllLayers(theme) {
     const preview = document.getElementById("preview");
-    preview.innerHTML = ""; // limpa
+    preview.innerHTML = ""; // limpa preview
 
     const shape = document.getElementById("shape").value;
-    const stroke = document.getElementById("stroke").value;
-    const radius = document.getElementById("radius").value;
+    const stroke = Number(document.getElementById("stroke").value);
+    const radius = Number(document.getElementById("radius").value);
+    const speed = Number(document.getElementById("speed").value);
 
-    const width = preview.clientWidth;
-    const height = preview.clientHeight;
+    const w = preview.clientWidth;
+    const h = preview.clientHeight;
 
-    let el = document.createElement("div");
-    el.className = "shape-layer";
+    // CRIA A CAMADA DO SHAPE
+    const layer = document.createElement("div");
+    layer.className = "shape-layer";
 
     /* ============================================================
-       SHAPES SUPORTADOS
-    ============================================================ */
+       FORMAS SUPORTADAS
+    ============================================================= */
     if (shape === "rect") {
-        el.style.width = width + "px";
-        el.style.height = height + "px";
-        el.style.borderRadius = radius + "px";
+        layer.style.width = w + "px";
+        layer.style.height = h + "px";
+        layer.style.borderRadius = radius + "px";
 
     } else if (shape === "square") {
-        const size = Math.min(width, height);
-        el.style.width = size + "px";
-        el.style.height = size + "px";
-        el.style.borderRadius = radius + "px";
-        el.style.margin = "auto";
+        const size = Math.min(w, h);
+        layer.style.width = size + "px";
+        layer.style.height = size + "px";
+        layer.style.borderRadius = radius + "px";
 
     } else if (shape === "line-h") {
-        el.style.width = width + "px";
-        el.style.height = stroke + "px";
-        el.style.borderRadius = radius + "px";
-        el.style.margin = "auto";
+        layer.style.width = w + "px";
+        layer.style.height = stroke + "px";
+        layer.style.borderRadius = radius + "px";
 
     } else if (shape === "line-v") {
-        el.style.width = stroke + "px";
-        el.style.height = height + "px";
-        el.style.borderRadius = radius + "px";
-        el.style.margin = "auto";
+        layer.style.width = stroke + "px";
+        layer.style.height = h + "px";
+        layer.style.borderRadius = radius + "px";
     }
 
     /* ============================================================
-       GRADIENTE
-    ============================================================ */
-
-    el.style.background = `
+       GRADIENTE PRINCIPAL COM ANIMAÇÃO
+    ============================================================= */
+    layer.style.background = `
         linear-gradient(90deg,
         ${theme.c1},
         ${theme.c2},
         ${theme.c3},
         ${theme.c4})
     `;
+    layer.style.backgroundSize = "400% 400%";
+    layer.style.animation = `gradientFlow ${speed}s ease infinite`;
 
     /* ============================================================
-       SOMBRA / EFEITOS
-    ============================================================ */
+       EFEITOS OPCIONAIS
+    ============================================================= */
 
+    // TOKYO GLOW (neon)
     if (document.getElementById("fxTokyo").checked) {
-        el.classList.add("tokyo-glow");
+        layer.classList.add("tokyo-glow");
     }
 
+    // GLASS
     if (document.getElementById("fxGlass").checked) {
-        el.classList.add("glass-panel");
+        layer.classList.add("glass-panel");
     }
 
+    // BORDA DUPLA
     if (document.getElementById("fxDouble").checked) {
-        el.classList.add("double-border");
+        layer.classList.add("double-border");
     }
 
-    preview.appendChild(el);
+    // PARTÍCULAS
+    if (document.getElementById("fxParticles").checked) {
+        spawnParticles(preview, theme);
+    }
+
+    preview.appendChild(layer);
+}
+
+/* ============================================================
+   ANIMAÇÃO DO GRADIENTE
+============================================================ */
+const gradientCSS = document.createElement("style");
+gradientCSS.innerHTML = `
+@keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+`;
+document.head.appendChild(gradientCSS);
+
+/* ============================================================
+   PARTÍCULAS (COMPATÍVEL COM O FX)
+============================================================ */
+function spawnParticles(container, theme) {
+    for (let i = 0; i < 10; i++) {
+        const p = document.createElement("div");
+        p.className = "particle";
+
+        p.style.width = p.style.height = (Math.random() * 8 + 4) + "px";
+        p.style.left = Math.random() * container.clientWidth + "px";
+        p.style.top = container.clientHeight + "px";
+        p.style.background = theme.particle || theme.c3;
+
+        container.appendChild(p);
+
+        setTimeout(() => p.remove(), 3500);
+    }
 }
