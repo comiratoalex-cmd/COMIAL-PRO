@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>COMIAL PRO — Neon Engine Extreme</title>
+
+    <!-- CSS PRINCIPAL -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- EFEITOS -->
     <link rel="stylesheet" href="fx/glass.css">
     <link rel="stylesheet" href="fx/double.css">
     <link rel="stylesheet" href="fx/tokyo.css">
@@ -11,16 +15,21 @@
 
 <body>
 
+<!-- SIDEBAR UI PRO -->
 <div class="sidebar">
+
     <h1 class="logo">COMIAL<span>PRO</span></h1>
 
+    <!-- IA MODULE -->
     <div class="module">
         <h2 class="module-title">🎨 Gerador IA (Cores)</h2>
+
         <button id="generateAI" class="btn">Gerar Tema IA</button>
 
         <div id="themePreview" class="theme-preview"></div>
     </div>
 
+    <!-- BORDER CONTROL MODULE -->
     <div class="module">
         <h2 class="module-title">🖼 Bordas</h2>
 
@@ -42,41 +51,53 @@
         <input type="range" id="speed" min="1" max="30" value="12">
     </div>
 
+    <!-- EFFECTS MODULE -->
     <div class="module">
         <h2 class="module-title">✨ Efeitos</h2>
-        
+
         <label><input type="checkbox" id="fxGlass"> Glass Effect</label>
         <label><input type="checkbox" id="fxDouble"> Borda Dupla</label>
-        <label><input type="checkbox" id="fxTokyo"> Glow Tokyo</label>
+        <label><input type="checkbox" id="fxTokyo"> Tokyo Glow</label>
         <label><input type="checkbox" id="fxParticles"> Partículas</label>
     </div>
 
+    <!-- EXPORT MODULE -->
     <div class="module">
         <h2 class="module-title">🔗 Export</h2>
 
         <button id="exportViewer" class="btn">Gerar Link Viewer</button>
-        <input id="viewerLink" readonly>
+        <input id="viewerLink" class="output" readonly>
 
         <button id="exportOBS" class="btn">Gerar Link OBS</button>
-        <input id="obsLink" readonly>
+        <input id="obsLink" class="output" readonly>
+
+        <button id="exportPack" class="btn btn-pro">GERAR PACK COMPLETO</button>
     </div>
+
 </div>
 
-<!-- PREVIEW -->
+<!-- PREVIEW AREA -->
 <div class="preview-area">
     <div id="preview"></div>
 </div>
 
+<!-- IA SCRIPTS -->
 <script src="ai/themes-ai.js"></script>
 <script src="ai/smart-color.js"></script>
 <script src="ai/adaptive-glow.js"></script>
 
+<!-- FX -->
 <script src="fx/particles.js"></script>
 
+<!-- ENGINE -->
 <script src="engine/layers.js"></script>
 <script src="engine/renderer.js"></script>
 
+<!-- CONTROLLER -->
 <script src="script.js"></script>
+
+<!-- PACK EXPORTER -->
+<script src="exporter.js"></script>
 
 </body>
 </html>
