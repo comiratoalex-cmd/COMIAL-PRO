@@ -1,3 +1,6 @@
+/* =========================================
+   GLOBAL
+========================================= */
 body {
     margin: 0;
     display: flex;
@@ -8,6 +11,9 @@ body {
     overflow: hidden;
 }
 
+/* =========================================
+   SIDEBAR
+========================================= */
 .sidebar {
     width: 340px;
     background: #111114;
@@ -25,6 +31,9 @@ body {
     color: #d1d1d1;
 }
 
+/* =========================================
+   MODULES
+========================================= */
 .module {
     background: #16161a;
     padding: 15px;
@@ -39,7 +48,7 @@ body {
     color: #8ecfff;
 }
 
-select, input[type=range] {
+select, input[type=range], .output {
     width: 100%;
     margin-bottom: 12px;
     background: #0f0f12;
@@ -59,20 +68,52 @@ select, input[type=range] {
     cursor: pointer;
     margin-bottom: 10px;
     transition: 0.2s;
+    font-size: 14px;
 }
 .btn:hover {
     background: #0a8fff;
 }
 
+/* BOTÃO PRO */
+.btn-pro {
+    background: linear-gradient(90deg, #0077ff, #00e1ff);
+    font-weight: 700;
+}
+.btn-pro:hover {
+    filter: brightness(1.2);
+}
+
+/* =========================================
+   PREVIEW AREA
+========================================= */
 .preview-area {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: #0c0c0f;
 }
 
 #preview {
     width: 800px;
     height: 450px;
     position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    background: transparent;
+}
+
+/* =========================================
+   PARTICLE SYSTEM
+========================================= */
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.9;
+    animation: rise 3.5s linear forwards;
+}
+
+@keyframes rise {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-180px); opacity: 0; }
 }
