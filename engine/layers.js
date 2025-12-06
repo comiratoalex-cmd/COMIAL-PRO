@@ -1,32 +1,67 @@
 /* ============================================================
-   COMIAL PRO — MULTILAYER ENGINE (3 LAYERS)
+   COMIAL PRO — MULTILAYER SYSTEM
+   Cria camadas extras de brilho, glow, borda, halos e layers
 ============================================================ */
 
-function renderAllLayers(theme) {
+/*
+Camadas ativas:
 
-    const shape = $("shape").value;
-    const thickness = $("stroke").value;
-    const radius = $("radius").value;
-    const speed = $("speed").value;
+1 — Base (renderer.js)
+2 — Glow expandido
+3 — Glow suave
+4 — Halo pastel
+5 — Borda externa (soft)
+*/
 
-    const enableGlass = $("fxGlass").checked;
-    const enableDouble = $("fxDouble").checked;
-    const enableTokyo = $("fxTokyo").checked;
-    const enableParticles = $("fxParticles").checked;
+function createGlowLayer(preview, theme, size, blur, opacity) {
+    const glow = document.createElement("div");
+    glow.className = "shape-layer glow-layer";
 
-    /* LAYER 1 — GRADIENT CORE */
-    renderBaseLayer(theme, shape, thickness, radius, speed);
+    glow.style.filter = `
+        drop-shadow(0 0 ${blur}px ${hexToRgba(theme.glow || theme.c2, opacity)})
+    `;
 
-    /* LAYER 2 — DOUBLE BORDER */
-    if (enableDouble) applyDoubleBorder();
+    glow.style.transform = `scale(${size})`;
 
-    /* LAYER 3 — GLASS EFFECT */
-    if (enableGlass) applyGlassEffect();
+    preview.appendChild(glow);
+}
 
-    /* LAYER 4 — TOKYO GLOW BREATHING */
-    if (enableTokyo) applyTokyoGlow(theme);
+/* ============================================================
+   CONVERTE HEX → RGBA
+============================================================ */
+function hexToRgba(hex, opacity) {
+    hex = hex.replace("#", "");
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    return `rgba(${r},${g},${b},${opacity})`;
+}
 
-    /* LAYER 5 — PARTICLES */
-    if (enableParticles) startParticles(theme);
-    else stopParticles();
+/* ============================================================
+   SISTEMA PRINCIPAL DE MULTILAYER
+============================================================ */
+
+function applyMultiLayers(preview, theme) {
+    // camada 2 — glow expandido
+    createGlowLayer(preview, theme, 1.05, 25, 0.55);
+
+    // camada 3 — glow suave
+    createGlowLayer(preview, theme, 1.00, 15, 0.40);
+
+    // camada 4 — halo pastel
+    createGlowLayer(preview, theme, 1.15, 40, 0.30);
+
+    // camada 5 — borda externa bem suave
+    createGlowLayer(preview, theme, 1.09, 32, 0.25);
+}
+
+/* ============================================================
+   FUNÇÃO PRINCIPAL CHAMADA PELO RENDERER
+============================================================ */
+
+function enhanceLayerSystem(theme) {
+    const preview = document.getElementById("preview");
+
+    // Aplica multicamada APÓS o layer base estar desenhado
+    applyMultiLayers(preview, theme);
 }
