@@ -1,45 +1,58 @@
-/* =========================================
+/* ============================================================
    GLOBAL
-========================================= */
-body {
+============================================================ */
+* {
+    box-sizing: border-box;
+}
+
+html, body {
     margin: 0;
-    display: flex;
+    padding: 0;
+    height: 100%;
+}
+
+body {
     background: #0c0c0f;
     font-family: 'Segoe UI', sans-serif;
     color: white;
-    height: 100vh;
+    display: flex;
     overflow: hidden;
 }
 
-/* =========================================
+/* ============================================================
    SIDEBAR
-========================================= */
+============================================================ */
 .sidebar {
     width: 340px;
+    height: 100vh;
     background: #111114;
     border-right: 1px solid #2a2a33;
     padding: 20px;
     overflow-y: auto;
+    position: relative;
 }
 
 .logo {
-    font-size: 32px;
+    font-size: 34px;
     font-weight: 900;
     color: #00aaff;
+    margin-bottom: 20px;
 }
+
 .logo span {
     color: #d1d1d1;
 }
 
-/* =========================================
+/* ============================================================
    MODULES
-========================================= */
+============================================================ */
 .module {
     background: #16161a;
     padding: 15px;
-    border-radius: 12px;
-    margin-top: 18px;
+    border-radius: 14px;
+    margin-bottom: 18px;
     border: 1px solid #2a2a33;
+    animation: panelIn 0.35s ease-out forwards;
 }
 
 .module-title {
@@ -48,64 +61,110 @@ body {
     color: #8ecfff;
 }
 
-select, input[type=range], .output {
-    width: 100%;
-    margin-bottom: 12px;
-    background: #0f0f12;
-    border: 1px solid #2a2a33;
-    padding: 8px;
-    color: white;
-    border-radius: 8px;
-}
-
+/* ============================================================
+   BUTTONS
+============================================================ */
 .btn {
     width: 100%;
     padding: 12px;
     background: #0077ff;
     border: none;
-    color: white;
     border-radius: 8px;
     cursor: pointer;
-    margin-bottom: 10px;
-    transition: 0.2s;
+    color: white;
+    margin: 8px 0;
     font-size: 14px;
-}
-.btn:hover {
-    background: #0a8fff;
+    transition: 0.2s;
 }
 
-/* BOTÃO PRO */
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0, 153, 255, 0.45);
+}
+
 .btn-pro {
     background: linear-gradient(90deg, #0077ff, #00e1ff);
     font-weight: 700;
 }
-.btn-pro:hover {
-    filter: brightness(1.2);
+
+/* ============================================================
+   INPUTS
+============================================================ */
+select, input[type=range], .output {
+    width: 100%;
+    background: #0f0f12;
+    border: 1px solid #2a2a33;
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
 
-/* =========================================
+input[type=range] {
+    cursor: pointer;
+}
+
+/* ============================================================
+   PRESETS GRID
+============================================================ */
+.presets-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.preset-thumb {
+    height: 42px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid #2a2a33;
+    transition: 0.15s;
+}
+
+.preset-thumb:hover {
+    transform: scale(1.08);
+    border-color: #00aaff;
+}
+
+/* ============================================================
+   GLASS PRO v2
+============================================================ */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(18px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.17);
+    border-radius: 14px;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+}
+
+/* ============================================================
    PREVIEW AREA
-========================================= */
+============================================================ */
 .preview-area {
     flex: 1;
+    height: 100vh;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     background: #0c0c0f;
+    overflow: hidden;
+    position: relative;
 }
 
 #preview {
-    width: 800px;
-    height: 450px;
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
+    width: 820px;
+    height: 460px;
     background: transparent;
+    border-radius: 20px;
+    position: relative;
+    z-index: 5;
+    animation: fadeIn 0.4s ease-out forwards;
 }
 
-/* =========================================
-   PARTICLE SYSTEM
-========================================= */
+/* ============================================================
+   PARTICLES (GLOBAL)
+============================================================ */
 .particle {
     position: absolute;
     border-radius: 50%;
@@ -117,31 +176,22 @@ select, input[type=range], .output {
     from { transform: translateY(0); opacity: 1; }
     to { transform: translateY(-180px); opacity: 0; }
 }
-/* ============================================================
-   GLASS PRO v2 — Painéis de Vidro Premium
-============================================================ */
-.glass-panel {
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(18px) saturate(180%);
-    border: 1px solid rgba(255,255,255,0.17);
-    border-radius: 14px;
-    box-shadow: 0 6px 25px rgba(0,0,0,0.4);
-}
 
 /* ============================================================
-   ANIMAÇÃO DE ENTRADA DOS PAINÉIS
+   ANIMAÇÕES DE UI
 ============================================================ */
 @keyframes panelIn {
     0% { opacity: 0; transform: translateY(20px); }
     100% { opacity: 1; transform: translateY(0); }
 }
 
-.module {
-    animation: panelIn 0.35s ease-out forwards;
+@keyframes fadeIn {
+    0% { opacity: 0; transform: scale(0.96); }
+    100% { opacity: 1; transform: scale(1); }
 }
 
 /* ============================================================
-   MOBILE MENU TOGGLE (BOTÃO)
+   MOBILE MODE
 ============================================================ */
 .mobile-toggle {
     display: none;
@@ -159,9 +209,6 @@ select, input[type=range], .output {
     box-shadow: 0 4px 22px rgba(0,0,0,0.4);
 }
 
-/* ============================================================
-   RESPONSIVIDADE MOBILE
-============================================================ */
 @media (max-width: 768px) {
 
     .mobile-toggle {
@@ -170,12 +217,11 @@ select, input[type=range], .output {
 
     .sidebar {
         position: fixed;
-        top: 0;
         left: -360px;
+        top: 0;
         height: 100vh;
         z-index: 9998;
         transition: 0.33s;
-        box-shadow: 6px 0 25px rgba(0,0,0,0.4);
     }
 
     .sidebar.open {
@@ -183,41 +229,12 @@ select, input[type=range], .output {
     }
 
     .preview-area {
-        padding: 20px;
+        padding: 12px;
     }
 
     #preview {
         width: 100%;
         height: 60vh;
         border-radius: 18px;
-        animation: fadeIn 0.4s ease-out forwards;
     }
-}
-
-/* ============================================================
-   MICRO INTERAÇÕES (UI premium)
-============================================================ */
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 14px rgba(0, 153, 255, 0.45);
-}
-
-.preset-thumb:hover {
-    transform: scale(1.08);
-}
-
-select:hover, input[type=range]:hover {
-    border-color: #00aaff;
-}
-
-/* ============================================================
-   ANIMAÇÃO DO PREVIEW
-============================================================ */
-#preview {
-    animation: fadeIn 0.4s ease-out forwards;
-}
-
-@keyframes fadeIn {
-    0% { opacity: 0; transform: scale(0.96); }
-    100% { opacity: 1; transform: scale(1); }
 }
