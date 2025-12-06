@@ -30,6 +30,7 @@ body {
     padding: 20px;
     overflow-y: auto;
     position: relative;
+    z-index: 20;
 }
 
 .logo {
@@ -100,10 +101,6 @@ select, input[type=range], .output {
     margin-bottom: 10px;
 }
 
-input[type=range] {
-    cursor: pointer;
-}
-
 /* ============================================================
    PRESETS GRID
 ============================================================ */
@@ -155,15 +152,31 @@ input[type=range] {
 #preview {
     width: 820px;
     height: 460px;
+    position: relative;
     background: transparent;
     border-radius: 20px;
-    position: relative;
     z-index: 5;
     animation: fadeIn 0.4s ease-out forwards;
+
+    /* Centraliza shapes */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* ============================================================
-   PARTICLES (GLOBAL)
+   SHAPE LAYER (AGORA FUNCIONA)
+============================================================ */
+.shape-layer {
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+    margin: auto;
+    background-size: 400% 400%;
+    transition: 0.2s ease-in-out;
+}
+
+/* ============================================================
+   PARTICLES
 ============================================================ */
 .particle {
     position: absolute;
@@ -178,7 +191,7 @@ input[type=range] {
 }
 
 /* ============================================================
-   ANIMAÇÕES DE UI
+   ANIMAÇÕES UI
 ============================================================ */
 @keyframes panelIn {
     0% { opacity: 0; transform: translateY(20px); }
@@ -191,7 +204,7 @@ input[type=range] {
 }
 
 /* ============================================================
-   MOBILE MODE
+   MOBILE
 ============================================================ */
 .mobile-toggle {
     display: none;
@@ -235,6 +248,5 @@ input[type=range] {
     #preview {
         width: 100%;
         height: 60vh;
-        border-radius: 18px;
     }
 }
