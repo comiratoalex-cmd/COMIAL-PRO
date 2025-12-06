@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>COMIAL PRO — Alert</title>
+
+<link rel="stylesheet" href="../obs.css">
+<link rel="stylesheet" href="../fx/tokyo.css">
+
+<style>
+#alertBox {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    padding: 20px 40px;
+    border-radius: 16px;
+
+    font-size: 42px;
+    font-weight: 800;
+    text-align: center;
+
+    color: white;
+    background: transparent;
+    animation: popIn 0.8s ease-out forwards;
+}
+
+@keyframes popIn {
+    0% { transform: translate(-50%,-50%) scale(0.4); opacity: 0; }
+    100% { transform: translate(-50%,-50%) scale(1); opacity: 1; }
+}
+
+#alertBox.remove {
+    animation: popOut 0.7s ease-in forwards;
+}
+
+@keyframes popOut {
+    0% { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%,-50%) scale(0.4); }
+}
+</style>
+</head>
+
+<body>
+
+<div id="alertBox">✨ Someone Followed ✨</div>
+
+<script src="../ai/themes-ai.js"></script>
+<script src="../fx/particles.js"></script>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const user = params.get("user") || "Someone Followed!";
+
+const theme = generateAITheme();
+const box = document.getElementById("alertBox");
+
+box.textContent = user;
+box.style.textShadow = `0 0 18px ${theme.glow}`;
+box.style.background = `linear-gradient(90deg, ${theme.c1}, ${theme.c2}, ${theme.c3})`;
+box.style.border = `4px solid ${theme.c2}`;
+
+startParticles(theme);
+
+setTimeout(() => {
+    box.classList.add("remove");
+}, 3600);
+</script>
+
+</body>
+</html>
