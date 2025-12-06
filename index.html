@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>COMIAL PRO — Neon Engine Extreme</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fx/glass.css">
+    <link rel="stylesheet" href="fx/double.css">
+    <link rel="stylesheet" href="fx/tokyo.css">
+</head>
+
+<body>
+
+<div class="sidebar">
+    <h1 class="logo">COMIAL<span>PRO</span></h1>
+
+    <div class="module">
+        <h2 class="module-title">🎨 Gerador IA (Cores)</h2>
+        <button id="generateAI" class="btn">Gerar Tema IA</button>
+
+        <div id="themePreview" class="theme-preview"></div>
+    </div>
+
+    <div class="module">
+        <h2 class="module-title">🖼 Bordas</h2>
+
+        <label>Forma</label>
+        <select id="shape">
+            <option value="rect">Retângulo</option>
+            <option value="square">Quadrado</option>
+            <option value="line-h">Linha Horizontal</option>
+            <option value="line-v">Linha Vertical</option>
+        </select>
+
+        <label>Espessura</label>
+        <input type="range" id="stroke" min="1" max="30" value="6">
+
+        <label>Raio</label>
+        <input type="range" id="radius" min="0" max="80" value="18">
+
+        <label>Velocidade</label>
+        <input type="range" id="speed" min="1" max="30" value="12">
+    </div>
+
+    <div class="module">
+        <h2 class="module-title">✨ Efeitos</h2>
+        
+        <label><input type="checkbox" id="fxGlass"> Glass Effect</label>
+        <label><input type="checkbox" id="fxDouble"> Borda Dupla</label>
+        <label><input type="checkbox" id="fxTokyo"> Glow Tokyo</label>
+        <label><input type="checkbox" id="fxParticles"> Partículas</label>
+    </div>
+
+    <div class="module">
+        <h2 class="module-title">🔗 Export</h2>
+
+        <button id="exportViewer" class="btn">Gerar Link Viewer</button>
+        <input id="viewerLink" readonly>
+
+        <button id="exportOBS" class="btn">Gerar Link OBS</button>
+        <input id="obsLink" readonly>
+    </div>
+</div>
+
+<!-- PREVIEW -->
+<div class="preview-area">
+    <div id="preview"></div>
+</div>
+
+<script src="ai/themes-ai.js"></script>
+<script src="ai/smart-color.js"></script>
+<script src="ai/adaptive-glow.js"></script>
+
+<script src="fx/particles.js"></script>
+
+<script src="engine/layers.js"></script>
+<script src="engine/renderer.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
