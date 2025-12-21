@@ -2,43 +2,152 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>COMIAL PRO — TESTE VISUAL</title>
+<title>COMIAL PRO — FULL</title>
 
 <style>
+/* ================= RESET ================= */
+* { box-sizing: border-box; }
+
 html, body {
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
-  background: black;
+  background: #0b0c10;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: hidden;
 }
 
-/* PREVIEW */
-#preview {
-  position: relative;
+/* ================= LAYOUT ================= */
+#app {
+  display: flex;
   width: 100%;
   height: 100%;
-  background: #111;
+  position: relative;
+  z-index: 1;
 }
 
-/* BORDA FORÇADA */
-#border {
-  position: absolute;
-  inset: 50px;
+/* ================= SIDEBAR ================= */
+#sidebar {
+  width: 320px;
+  background: #0f1117;
+  border-right: 1px solid #1f2330;
+  padding: 20px;
+  overflow-y: auto;
+}
 
-  /* ISSO É IMPOSSÍVEL NÃO APARECER */
-  border: 10px solid red;
+.logo {
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+.logo span { color: #00aaff; }
 
+.section {
+  background: #141824;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.section h3 {
+  margin: 0 0 12px;
+  font-size: 15px;
+  color: #d0d6ff;
+}
+
+button {
+  width: 100%;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #007bff;
+  color: white;
+}
+button + button { margin-top: 10px; }
+
+/* ================= PREVIEW ================= */
+#preview {
+  flex: 1;
+  background: radial-gradient(circle at top, #111 0%, #050505 70%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ================= BORDER OVERLAY ================= */
+#border-overlay {
+  position: fixed;
+  inset: 20px;
+
+  /* espessura */
+  padding: 6px;
+  border-radius: 22px;
+
+  background: linear-gradient(
+    90deg,
+    #7CFF00,
+    #00C897,
+    #007BFF
+  );
+
+  /* centro vazado */
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+
+  animation: hue 6s linear infinite;
+
+  /* MUITO IMPORTANTE */
+  pointer-events: none;
   z-index: 9999;
+}
+
+@keyframes hue {
+  to { filter: hue-rotate(360deg); }
 }
 </style>
 </head>
 
 <body>
 
-<div id="preview">
-  <div id="border"></div>
+<div id="app">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="logo">COMIAL<span>PRO</span></div>
+
+    <div class="section">
+      <h3>🎨 Gerador IA (Cores)</h3>
+      <button>Gerar Tema IA</button>
+    </div>
+
+    <div class="section">
+      <h3>💎 Presets PRO</h3>
+      <button>Tokyo Aleatório</button>
+      <button>Vaporwave</button>
+      <button>Gold Luxury</button>
+    </div>
+
+    <div class="section">
+      <h3>🧱 Bordas</h3>
+      <p style="font-size:13px;color:#999">Overlay ativo</p>
+    </div>
+  </aside>
+
+  <!-- PREVIEW -->
+  <main id="preview">
+    <!-- aqui entra vídeo, imagem, canvas, etc -->
+  </main>
+
 </div>
+
+<!-- OVERLAY DA BORDA (NÃO REMOVE NADA) -->
+<div id="border-overlay"></div>
 
 </body>
 </html>
+
