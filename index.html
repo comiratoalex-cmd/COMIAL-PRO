@@ -1,129 +1,164 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>COMIAL PRO — Neon Engine Extreme</title>
+<meta charset="UTF-8">
+<title>COMIAL PRO — Preview</title>
 
-    <!-- CSS PRINCIPAL -->
-    <link rel="stylesheet" href="style.css">
+<style>
+/* =========================
+   RESET
+========================= */
+* {
+  box-sizing: border-box;
+}
 
-    <!-- EFEITOS -->
-    <link rel="stylesheet" href="fx/glass.css">
-    <link rel="stylesheet" href="fx/double.css">
-    <link rel="stylesheet" href="fx/tokyo.css">
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #0b0c10;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: hidden;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+#app {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+#sidebar {
+  width: 320px;
+  background: #0f1117;
+  border-right: 1px solid #1f2330;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.logo span {
+  color: #00aaff;
+}
+
+.section {
+  background: #141824;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.section h3 {
+  margin: 0 0 12px;
+  font-size: 15px;
+  color: #d0d6ff;
+}
+
+button {
+  width: 100%;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #007bff;
+  color: white;
+}
+
+button + button {
+  margin-top: 10px;
+}
+
+/* =========================
+   PREVIEW
+========================= */
+#preview {
+  position: relative;
+  flex: 1;
+  background: radial-gradient(circle at top, #111 0%, #050505 70%);
+  overflow: hidden;
+}
+
+/* =========================
+   COMIAL PRO BORDER
+========================= */
+#border {
+  position: absolute;
+  inset: 30px;
+
+  /* CONTROLES */
+  padding: 6px;
+  border-radius: 22px;
+
+  background: linear-gradient(
+    90deg,
+    #7CFF00,
+    #00C897,
+    #007BFF
+  );
+
+  /* CENTRO VAZADO */
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+
+  animation: hue 6s linear infinite;
+
+  z-index: 10;
+  pointer-events: none;
+}
+
+@keyframes hue {
+  to { filter: hue-rotate(360deg); }
+}
+</style>
 </head>
 
 <body>
 
-<!-- BOTÃO MOBILE -->
-<button id="mobileToggle" class="mobile-toggle">☰</button>
+<div id="app">
 
-<!-- SIDEBAR -->
-<div class="sidebar">
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="logo">COMIAL<span>PRO</span></div>
 
-    <h1 class="logo">COMIAL<span>PRO</span></h1>
-
-    <!-- IA: GERAR TEMA -->
-    <div class="module glass-panel">
-        <h2 class="module-title">🎨 Gerador IA (Cores)</h2>
-
-        <button id="generateAI" class="btn">Gerar Tema IA</button>
-
-        <div id="themePreview" class="theme-preview"></div>
+    <div class="section">
+      <h3>🎨 Gerador IA (Cores)</h3>
+      <button>Gerar Tema IA</button>
     </div>
 
-    <!-- PRESETS PRO -->
-    <div class="module glass-panel">
-        <h2 class="module-title">🎛️ Presets PRO</h2>
-
-        <div id="presetsGrid" class="presets-grid"></div>
-
-        <button id="randomTokyo" class="btn">🎌 Tokyo Aleatório</button>
-        <button id="randomVapor" class="btn">🌅 Vaporwave</button>
-        <button id="randomGold" class="btn">✨ Gold Luxury</button>
+    <div class="section">
+      <h3>💎 Presets PRO</h3>
+      <button>Tokyo Aleatório</button>
+      <button>Vaporwave</button>
+      <button>Gold Luxury</button>
     </div>
 
-    <!-- CONTROLE DA BORDA -->
-    <div class="module glass-panel">
-        <h2 class="module-title">🖼 Bordas</h2>
-
-        <label>Forma</label>
-        <select id="shape">
-            <option value="rect">Retângulo</option>
-            <option value="square">Quadrado</option>
-            <option value="line-h">Linha Horizontal</option>
-            <option value="line-v">Linha Vertical</option>
-        </select>
-
-        <label>Espessura</label>
-        <input type="range" id="stroke" min="1" max="30" value="6">
-
-        <label>Raio</label>
-        <input type="range" id="radius" min="0" max="80" value="18">
-
-        <label>Velocidade</label>
-        <input type="range" id="speed" min="1" max="30" value="12">
+    <div class="section">
+      <h3>🧱 Bordas</h3>
+      <p style="font-size:13px;color:#999">Preview ativo</p>
     </div>
+  </aside>
 
-    <!-- EFEITOS -->
-    <div class="module glass-panel">
-        <h2 class="module-title">✨ Efeitos</h2>
-
-        <label><input type="checkbox" id="fxGlass"> Glass Effect</label>
-        <label><input type="checkbox" id="fxDouble"> Borda Dupla</label>
-        <label><input type="checkbox" id="fxTokyo"> Tokyo Glow</label>
-        <label><input type="checkbox" id="fxParticles"> Partículas</label>
-    </div>
-
-    <!-- EXPORTAÇÃO -->
-    <div class="module glass-panel">
-        <h2 class="module-title">🔗 Export</h2>
-
-        <button id="exportViewer" class="btn">Gerar Link Viewer</button>
-        <input id="viewerLink" class="output" readonly>
-
-        <button id="exportOBS" class="btn">Gerar Link OBS</button>
-        <input id="obsLink" class="output" readonly>
-
-        <button id="exportPack" class="btn btn-pro">GERAR PACK COMPLETO</button>
-    </div>
+  <!-- PREVIEW -->
+  <main id="preview">
+    <div id="border"></div>
+  </main>
 
 </div>
-
-<!-- ÁREA DE PREVIEW -->
-<div class="preview-area">
-    <div id="preview"></div>
-</div>
-
-<!-- ============================================================
-     IA SCRIPTS (CAMINHOS CORRIGIDOS)
-============================================================ -->
-<script src="themes-ai.js"></script>
-<script src="smart-color.js"></script>
-<script src="adaptive-glow.js"></script>
-
-<!-- FX -->
-<script src="fx/particles.js"></script>
-
-<!-- ENGINE -->
-<script src="engine/layers.js"></script>
-<script src="engine/renderer.js"></script>
-
-<!-- PRESETS -->
-<script src="presets.js"></script>
-
-<!-- CONTROLADOR PRINCIPAL -->
-<script src="script.js"></script>
-
-<!-- EXPORT PACK -->
-<script src="exporter.js"></script>
-
-<!-- MOBILE MENU -->
-<script>
-document.getElementById("mobileToggle").onclick = () => {
-    document.querySelector(".sidebar").classList.toggle("open");
-};
-</script>
 
 </body>
 </html>
