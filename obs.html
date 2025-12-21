@@ -1,40 +1,71 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>COMIAL PRO OBS</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: transparent;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-    }
+<meta charset="UTF-8">
+<title>COMIAL PRO — Border OBS</title>
 
-    #border {
-      position: fixed;
-      inset: 20px;
-      border-radius: 16px;
-      border: 6px solid transparent;
-      background:
-        linear-gradient(#0000, #0000) padding-box,
-        linear-gradient(90deg, cyan, magenta) border-box;
-      animation: spin 6s linear infinite;
-    }
+<style>
+/* RESET TOTAL */
+* {
+  box-sizing: border-box;
+}
 
-    @keyframes spin {
-      to { filter: hue-rotate(360deg); }
-    }
-  </style>
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+  overflow: hidden;
+}
+
+/* ==========================
+   COMIAL PRO — BORDER
+   ========================== */
+
+#border {
+  position: fixed;
+  inset: 20px;
+
+  /* arredondamento */
+  border-radius: 22px;
+
+  /* espessura da borda */
+  padding: 6px;
+
+  /* gradiente PRO */
+  background: linear-gradient(
+    90deg,
+    #7CFF00,
+    #00C897,
+    #007BFF
+  );
+
+  /* centro vazado */
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+
+  /* animação */
+  animation: hue 6s linear infinite;
+
+  /* suavização */
+  will-change: filter;
+}
+
+/* animação do gradiente */
+@keyframes hue {
+  to { filter: hue-rotate(360deg); }
+}
+</style>
 </head>
 
 <body>
 
-  <div id="border"></div>
+<!-- BORDA -->
+<div id="border"></div>
 
 </body>
-
 </html>
