@@ -1,53 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-<meta charset="UTF-8">
-<title>COMIAL PRO — OBS Render</title>
+  <meta charset="UTF-8">
+  <title>COMIAL PRO OBS</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
 
-<link rel="stylesheet" href="obs.css">
-<link rel="stylesheet" href="fx/glass.css">
-<link rel="stylesheet" href="fx/double.css">
-<link rel="stylesheet" href="fx/tokyo.css">
+    #border {
+      position: fixed;
+      inset: 20px;
+      border-radius: 16px;
+      border: 6px solid transparent;
+      background:
+        linear-gradient(#0000, #0000) padding-box,
+        linear-gradient(90deg, cyan, magenta) border-box;
+      animation: spin 6s linear infinite;
+    }
 
+    @keyframes spin {
+      to { filter: hue-rotate(360deg); }
+    }
+  </style>
 </head>
 
 <body>
 
-<div id="preview"></div>
-
-<script src="ai/smart-color.js"></script>
-<script src="ai/adaptive-glow.js"></script>
-<script src="ai/themes-ai.js"></script>
-
-<script src="fx/particles.js"></script>
-
-<script src="engine/layers.js"></script>
-<script src="engine/renderer.js"></script>
-
-<script>
-/* ============================================================
-   OBS MODE — recebe o tema via URL e renderiza a borda
-============================================================ */
-
-const params = new URLSearchParams(window.location.search);
-let theme = null;
-
-try {
-    theme = JSON.parse(params.get("theme"));
-} catch (e) {
-    console.warn("Sem tema. Use o gerador para criar um link OBS.");
-}
-
-if (theme) {
-    // Aplica o tema no preview OBS
-    renderAllLayers(theme);
-}
-
-// Impede fundo — OBS exige transparente total
-document.body.style.background = "transparent";
-document.body.style.overflow = "hidden";
-
-</script>
+  <div id="border"></div>
 
 </body>
+
 </html>
