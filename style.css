@@ -257,3 +257,9 @@ body{
     height:60vh;
   }
 }
+/* =========================================
+   DESATIVAR FUNDO ANIMADO (ANTI-FLICKER)
+========================================= */
+#bgCanvas{
+  display: none !important;
+}
