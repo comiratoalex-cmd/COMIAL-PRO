@@ -1,153 +1,84 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>COMIAL PRO — FULL</title>
+  <meta charset="UTF-8">
+  <title>COMIAL PRO — Overlay Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-/* ================= RESET ================= */
-* { box-sizing: border-box; }
+  <!-- FONTES -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  height: 100vh;
-  background: #0b0c10;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  overflow: hidden;
-}
+  <!-- CSS PRINCIPAL -->
+  <link rel="stylesheet" href="style.css">
 
-/* ================= LAYOUT ================= */
-#app {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  z-index: 1;
-}
-
-/* ================= SIDEBAR ================= */
-#sidebar {
-  width: 320px;
-  background: #0f1117;
-  border-right: 1px solid #1f2330;
-  padding: 20px;
-  overflow-y: auto;
-}
-
-.logo {
-  font-size: 26px;
-  font-weight: 800;
-  margin-bottom: 20px;
-}
-.logo span { color: #00aaff; }
-
-.section {
-  background: #141824;
-  border-radius: 14px;
-  padding: 16px;
-  margin-bottom: 16px;
-}
-
-.section h3 {
-  margin: 0 0 12px;
-  font-size: 15px;
-  color: #d0d6ff;
-}
-
-button {
-  width: 100%;
-  border: none;
-  padding: 12px;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  background: #007bff;
-  color: white;
-}
-button + button { margin-top: 10px; }
-
-/* ================= PREVIEW ================= */
-#preview {
-  flex: 1;
-  background: radial-gradient(circle at top, #111 0%, #050505 70%);
-  position: relative;
-  overflow: hidden;
-}
-
-/* ================= BORDER OVERLAY ================= */
-#border-overlay {
-  position: fixed;
-  inset: 20px;
-
-  /* espessura */
-  padding: 6px;
-  border-radius: 22px;
-
-  background: linear-gradient(
-    90deg,
-    #7CFF00,
-    #00C897,
-    #007BFF
-  );
-
-  /* centro vazado */
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-
-  animation: hue 6s linear infinite;
-
-  /* MUITO IMPORTANTE */
-  pointer-events: none;
-  z-index: 9999;
-}
-
-@keyframes hue {
-  to { filter: hue-rotate(360deg); }
-}
-</style>
+  <!-- VARIÁVEIS DEFAULT -->
+  <style>
+    :root{
+      --c1:#a855f7;
+      --c2:#22d3ee;
+      --c3:#fb7185;
+      --c4:#fcd34d;
+    }
+    body{
+      margin:0;
+      font-family:'Montserrat',sans-serif;
+      background:#000;
+      color:#fff;
+      overflow:hidden;
+    }
+  </style>
 </head>
 
 <body>
 
-<div id="app">
+  <!-- CANVAS FUNDO -->
+  <canvas id="bgCanvas"></canvas>
 
-  <!-- SIDEBAR -->
-  <aside id="sidebar">
-    <div class="logo">COMIAL<span>PRO</span></div>
+  <!-- LAYOUT -->
+  <div class="app">
 
-    <div class="section">
-      <h3>🎨 Gerador IA (Cores)</h3>
-      <button>Gerar Tema IA</button>
-    </div>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <h1 class="logo">COMIAL <span>PRO</span></h1>
 
-    <div class="section">
-      <h3>💎 Presets PRO</h3>
-      <button>Tokyo Aleatório</button>
-      <button>Vaporwave</button>
-      <button>Gold Luxury</button>
-    </div>
+      <!-- GERADOR IA -->
+      <section class="panel">
+        <h3>🎨 Gerador IA (Cores)</h3>
+        <button id="generateAI" class="btn primary">Gerar Tema IA</button>
+        <div id="themePreview" class="preview"></div>
+      </section>
 
-    <div class="section">
-      <h3>🧱 Bordas</h3>
-      <p style="font-size:13px;color:#999">Overlay ativo</p>
-    </div>
-  </aside>
+      <!-- PRESETS -->
+      <section class="panel">
+        <h3>💎 Presets PRO</h3>
+        <div id="presetsGrid" class="preset-grid"></div>
+      </section>
 
-  <!-- PREVIEW -->
-  <main id="preview">
-    <!-- aqui entra vídeo, imagem, canvas, etc -->
-  </main>
+      <!-- EXPORT -->
+      <section class="panel">
+        <h3>📤 Exportar</h3>
 
-</div>
+        <button id="exportViewer" class="btn">Gerar Link Viewer</button>
+        <input id="viewerLink" class="input" readonly>
 
-<!-- OVERLAY DA BORDA (NÃO REMOVE NADA) -->
-<div id="border-overlay"></div>
+        <button id="exportOBS" class="btn">Gerar Link OBS</button>
+        <input id="obsLink" class="input" readonly>
+
+        <button id="exportPack" class="btn secondary">Exportar Pack</button>
+      </section>
+    </aside>
+
+    <!-- ÁREA PREVIEW GRANDE -->
+    <main class="preview-area">
+      <div class="frame">
+        <span>Overlay ativo</span>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- SCRIPT -->
+  <script src="script.js" defer></script>
 
 </body>
 </html>
-
