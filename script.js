@@ -1,5 +1,6 @@
 /* ============================================================
-   COMIAL PRO — SCRIPT PRINCIPAL (FIXED / STABLE)
+   COMIAL PRO — SCRIPT PRINCIPAL (FINAL)
+   GitHub Pages + OBS SAFE
 ============================================================ */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -11,23 +12,28 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentTheme = null;
 
   /* =========================
-     PRESETS PADRÃO
+     PRESETS PRO
   ========================= */
   const PRESETS = [
-    { name:"Tokyo", c1:"#a855f7", c2:"#22d3ee", c3:"#fb7185", c4:"#fcd34d" },
-    { name:"Vaporwave", c1:"#ff92c9", c2:"#7bd2f8", c3:"#f9f871", c4:"#c7b0ff" },
-    { name:"Gold", c1:"#f7d488", c2:"#fce8b0", c3:"#e4bf72", c4:"#fff1cc" }
+    { name:"Tokyo",      c1:"#a855f7", c2:"#22d3ee", c3:"#fb7185", c4:"#fcd34d" },
+    { name:"Vaporwave",  c1:"#ff92c9", c2:"#7bd2f8", c3:"#f9f871", c4:"#c7b0ff" },
+    { name:"Gold",       c1:"#f7d488", c2:"#fce8b0", c3:"#e4bf72", c4:"#fff1cc" }
   ];
 
   /* =========================
-     GERADOR IA (SIMULADO)
+     GERADOR IA (CORES)
   ========================= */
-  function randomColor(){
-    return `hsl(${Math.random()*360},100%,60%)`;
+  function rand(){
+    return Math.floor(Math.random()*360);
   }
 
   function generateAITheme(){
-    const arr = [randomColor(),randomColor(),randomColor(),randomColor()];
+    const arr = [
+      `hsl(${rand()},100%,60%)`,
+      `hsl(${rand()},100%,60%)`,
+      `hsl(${rand()},100%,60%)`,
+      `hsl(${rand()},100%,60%)`
+    ];
     return {
       style: "AI Generated",
       c1: arr[0],
@@ -39,9 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  function generateGlowColor(arr){ return arr[0]; }
-  function generateParticleColor(arr){ return arr[2]; }
-
   /* =========================
      PREVIEW
   ========================= */
@@ -49,8 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const prev = $("themePreview");
     if(!prev) return;
 
-    prev.style.height = "40px";
-    prev.style.borderRadius = "8px";
     prev.style.background = `
       linear-gradient(90deg,
         ${theme.c1},
@@ -61,13 +62,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================
-     RENDER GLOBAL
+     APLICAR NO SISTEMA
   ========================= */
   function renderAllLayers(theme){
-    document.documentElement.style.setProperty("--c1", theme.c1);
-    document.documentElement.style.setProperty("--c2", theme.c2);
-    document.documentElement.style.setProperty("--c3", theme.c3);
-    document.documentElement.style.setProperty("--c4", theme.c4);
+    const r = document.documentElement;
+    r.style.setProperty("--c1", theme.c1);
+    r.style.setProperty("--c2", theme.c2);
+    r.style.setProperty("--c3", theme.c3);
+    r.style.setProperty("--c4", theme.c4);
   }
 
   /* =========================
@@ -78,23 +80,23 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function loadTheme(){
-    const stored = localStorage.getItem("comial-theme");
-    if(stored){
-      currentTheme = JSON.parse(stored);
+    const saved = localStorage.getItem("comial-theme");
+    if(saved){
+      currentTheme = JSON.parse(saved);
       applyThemePreview(currentTheme);
       renderAllLayers(currentTheme);
     }
   }
 
   /* =========================
-     EXPORT LINKS
+     EXPORT
   ========================= */
-  function exportLink(fieldId){
+  function exportLink(target){
     if(!currentTheme) return alert("Gere um tema primeiro!");
     const url = new URL(location.href);
     url.pathname = "obs.html";
     url.searchParams.set("theme", JSON.stringify(currentTheme));
-    $(fieldId).value = url.toString();
+    $(target).value = url.toString();
   }
 
   /* =========================
@@ -112,12 +114,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   $("exportPack")?.addEventListener("click", () => {
     if(!currentTheme) return alert("Gere um tema!");
-    const pack = {
-      name: "COMIAL PRO PACK",
-      theme: currentTheme,
-      generatedAt: new Date().toISOString()
-    };
-    const blob = new Blob([JSON.stringify(pack,null,2)],{type:"application/json"});
+    const blob = new Blob(
+      [JSON.stringify({theme:currentTheme,generated:new Date()},null,2)],
+      {type:"application/json"}
+    );
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = "comial-pack.json";
@@ -132,16 +132,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if(!grid) return;
 
     PRESETS.forEach(p=>{
-      const div = document.createElement("div");
-      div.className = "preset-thumb";
-      div.style.background = `
+      const d = document.createElement("div");
+      d.className = "preset-thumb";
+      d.style.background = `
         linear-gradient(90deg,
-          ${p.c1},
-          ${p.c2},
-          ${p.c3},
-          ${p.c4})
+          ${p.c1},${p.c2},${p.c3},${p.c4})
       `;
-      div.onclick = ()=>{
+      d.onclick = ()=>{
         currentTheme = {
           style:p.name,
           c1:p.c1,c2:p.c2,c3:p.c3,c4:p.c4,
@@ -152,12 +149,12 @@ document.addEventListener("DOMContentLoaded", () => {
         renderAllLayers(currentTheme);
         saveTheme(currentTheme);
       };
-      grid.appendChild(div);
+      grid.appendChild(d);
     });
   }
 
   /* =========================
-     CANVAS BACKGROUND
+     CANVAS — FUNDO CINEMATOGRÁFICO
   ========================= */
   function initCanvas(){
     const canvas = $("bgCanvas");
@@ -173,21 +170,20 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("resize", resize);
 
     let t = 0;
+
     function loop(){
-      t += 0.015;
-      ctx.fillStyle = `rgba(${Math.sin(t)*127+128},0,0,0.06)`;
-      ctx.fillRect(0,0,canvas.width,canvas.height);
-      requestAnimationFrame(loop);
-    }
-    loop();
-  }
+      t += 0.01;
 
-  /* =========================
-     INIT
-  ========================= */
-  buildPresetGrid();
-  loadTheme();
-  initCanvas();
+      const c1 = getComputedStyle(document.documentElement).getPropertyValue("--c1").trim();
+      const c2 = getComputedStyle(document.documentElement).getPropertyValue("--c2").trim();
 
-  console.log("✅ COMIAL PRO — SCRIPT OK");
-});
+      const g = ctx.createLinearGradient(
+        Math.sin(t)*canvas.width, 0,
+        canvas.width, canvas.height
+      );
+      g.addColorStop(0, c1 || "#ff0080");
+      g.addColorStop(1, c2 || "#00eaff");
+
+      ctx.globalAlpha = 0.08;
+      ctx.fillStyle = g;
+      ctx.fillRect(0,0,canvas.widt
