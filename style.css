@@ -1,252 +1,259 @@
 /* ============================================================
-   GLOBAL
+   COMIAL PRO — CSS PRINCIPAL
 ============================================================ */
-* {
-    box-sizing: border-box;
+
+/* =========================
+   RESET
+========================= */
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
+html, body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
 }
 
-body {
-    background: #0c0c0f;
-    font-family: 'Segoe UI', sans-serif;
-    color: white;
-    display: flex;
-    overflow: hidden;
+/* =========================
+   VARIÁVEIS GLOBAIS
+========================= */
+:root{
+  --c1:#a855f7;
+  --c2:#22d3ee;
+  --c3:#fb7185;
+  --c4:#fcd34d;
+
+  --bg-panel:rgba(15,15,20,.92);
+  --bg-soft:rgba(255,255,255,.04);
+  --text:#ffffff;
+  --muted:#9ca3af;
+  --radius:14px;
+  --blur:18px;
 }
 
-/* ============================================================
+/* =========================
+   BODY
+========================= */
+body{
+  font-family:'Montserrat',sans-serif;
+  background:#000;
+  color:var(--text);
+}
+
+/* =========================
+   CANVAS BACKGROUND
+========================= */
+#bgCanvas{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+.app{
+  display:flex;
+  height:100vh;
+  width:100vw;
+}
+
+/* =========================
    SIDEBAR
-============================================================ */
-.sidebar {
-    width: 340px;
-    height: 100vh;
-    background: #111114;
-    border-right: 1px solid #2a2a33;
-    padding: 20px;
-    overflow-y: auto;
-    position: relative;
-    z-index: 20;
+========================= */
+.sidebar{
+  width:300px;
+  background:var(--bg-panel);
+  backdrop-filter:blur(var(--blur));
+  padding:18px;
+  overflow-y:auto;
+  border-right:1px solid rgba(255,255,255,.06);
 }
 
-.logo {
-    font-size: 34px;
-    font-weight: 900;
-    color: #00aaff;
-    margin-bottom: 20px;
+.sidebar::-webkit-scrollbar{
+  width:6px;
+}
+.sidebar::-webkit-scrollbar-thumb{
+  background:linear-gradient(var(--c1),var(--c2));
+  border-radius:10px;
 }
 
-.logo span {
-    color: #d1d1d1;
+/* =========================
+   LOGO
+========================= */
+.logo{
+  font-size:26px;
+  font-weight:700;
+  margin-bottom:18px;
+}
+.logo span{
+  background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));
+  -webkit-background-clip:text;
+  color:transparent;
 }
 
-/* ============================================================
-   MODULES
-============================================================ */
-.module {
-    background: #16161a;
-    padding: 15px;
-    border-radius: 14px;
-    margin-bottom: 18px;
-    border: 1px solid #2a2a33;
-    animation: panelIn 0.35s ease-out forwards;
+/* =========================
+   PANELS
+========================= */
+.panel{
+  background:var(--bg-soft);
+  border-radius:var(--radius);
+  padding:14px;
+  margin-bottom:16px;
 }
 
-.module-title {
-    font-size: 18px;
-    margin-bottom: 12px;
-    color: #8ecfff;
+.panel h3{
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:10px;
+  color:#fff;
 }
 
-/* ============================================================
-   BUTTONS
-============================================================ */
-.btn {
-    width: 100%;
-    padding: 12px;
-    background: #0077ff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    color: white;
-    margin: 8px 0;
-    font-size: 14px;
-    transition: 0.2s;
+/* =========================
+   BOTÕES
+========================= */
+.btn{
+  width:100%;
+  padding:11px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:600;
+  margin-bottom:8px;
+  background:#2a2a2a;
+  color:#fff;
+  transition:.25s;
 }
 
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 14px rgba(0, 153, 255, 0.45);
+.btn:hover{
+  transform:translateY(-1px);
+  opacity:.9;
 }
 
-.btn-pro {
-    background: linear-gradient(90deg, #0077ff, #00e1ff);
-    font-weight: 700;
+.btn.primary{
+  background:linear-gradient(90deg,var(--c1),var(--c2));
 }
 
-/* ============================================================
+.btn.secondary{
+  background:linear-gradient(90deg,var(--c3),var(--c4));
+}
+
+/* =========================
    INPUTS
-============================================================ */
-select, input[type=range], .output {
-    width: 100%;
-    background: #0f0f12;
-    border: 1px solid #2a2a33;
-    color: white;
-    padding: 8px;
-    border-radius: 8px;
-    margin-bottom: 10px;
+========================= */
+.input{
+  width:100%;
+  padding:9px;
+  margin-bottom:10px;
+  border-radius:8px;
+  border:none;
+  background:#111;
+  color:#fff;
+  font-size:12px;
 }
 
-/* ============================================================
+/* =========================
+   PREVIEW TEMA
+========================= */
+.preview{
+  width:100%;
+  height:40px;
+  border-radius:10px;
+  margin-top:8px;
+  border:1px solid rgba(255,255,255,.12);
+}
+
+/* =========================
    PRESETS GRID
-============================================================ */
-.presets-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-    margin-bottom: 12px;
+========================= */
+.preset-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
 }
 
-.preset-thumb {
-    height: 42px;
-    border-radius: 6px;
-    cursor: pointer;
-    border: 1px solid #2a2a33;
-    transition: 0.15s;
+.preset-thumb{
+  height:32px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:.2s;
+  border:1px solid rgba(255,255,255,.15);
 }
 
-.preset-thumb:hover {
-    transform: scale(1.08);
-    border-color: #00aaff;
+.preset-thumb:hover{
+  transform:scale(1.05);
 }
 
-/* ============================================================
-   GLASS PRO v2
-============================================================ */
-.glass-panel {
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(18px) saturate(180%);
-    border: 1px solid rgba(255,255,255,0.17);
-    border-radius: 14px;
-    box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+/* =========================
+   PREVIEW ÁREA
+========================= */
+.preview-area{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
 }
 
-/* ============================================================
-   PREVIEW AREA
-============================================================ */
-.preview-area {
-    flex: 1;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #0c0c0f;
-    overflow: hidden;
-    position: relative;
+/* =========================
+   FRAME OVERLAY
+========================= */
+.frame{
+  width:90%;
+  height:90%;
+  border-radius:24px;
+  position:relative;
+  background:
+    linear-gradient(#000,#000) padding-box,
+    linear-gradient(90deg,
+      var(--c1),
+      var(--c2),
+      var(--c3),
+      var(--c4)) border-box;
+  border:4px solid transparent;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--muted);
+  font-size:18px;
+  text-transform:uppercase;
+  letter-spacing:1px;
 }
 
-#preview {
-    width: 820px;
-    height: 460px;
-    position: relative;
-    background: transparent;
-    border-radius: 20px;
-    z-index: 5;
-    animation: fadeIn 0.4s ease-out forwards;
-
-    /* Centraliza shapes */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* =========================
+   FRAME ANIMAÇÃO SUTIL
+========================= */
+@keyframes glow{
+  0%{ box-shadow:0 0 10px var(--c1); }
+  50%{ box-shadow:0 0 25px var(--c2); }
+  100%{ box-shadow:0 0 10px var(--c1); }
 }
 
-/* ============================================================
-   SHAPE LAYER (AGORA FUNCIONA)
-============================================================ */
-.shape-layer {
-    position: absolute;
-    top: 0; bottom: 0; left: 0; right: 0;
-    margin: auto;
-    background-size: 400% 400%;
-    transition: 0.2s ease-in-out;
+.frame{
+  animation:glow 6s infinite alternate;
 }
 
-/* ============================================================
-   PARTICLES
-============================================================ */
-.particle {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.9;
-    animation: rise 3.5s linear forwards;
+/* =========================
+   RESPONSIVO
+========================= */
+@media(max-width:900px){
+  .sidebar{
+    width:240px;
+  }
 }
 
-@keyframes rise {
-    from { transform: translateY(0); opacity: 1; }
-    to { transform: translateY(-180px); opacity: 0; }
-}
-
-/* ============================================================
-   ANIMAÇÕES UI
-============================================================ */
-@keyframes panelIn {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeIn {
-    0% { opacity: 0; transform: scale(0.96); }
-    100% { opacity: 1; transform: scale(1); }
-}
-
-/* ============================================================
-   MOBILE
-============================================================ */
-.mobile-toggle {
-    display: none;
-    position: fixed;
-    top: 12px;
-    left: 12px;
-    z-index: 9999;
-    background: #0077ff;
-    border: none;
-    padding: 12px 16px;
-    border-radius: 10px;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    box-shadow: 0 4px 22px rgba(0,0,0,0.4);
-}
-
-@media (max-width: 768px) {
-
-    .mobile-toggle {
-        display: block;
-    }
-
-    .sidebar {
-        position: fixed;
-        left: -360px;
-        top: 0;
-        height: 100vh;
-        z-index: 9998;
-        transition: 0.33s;
-    }
-
-    .sidebar.open {
-        left: 0;
-    }
-
-    .preview-area {
-        padding: 12px;
-    }
-
-    #preview {
-        width: 100%;
-        height: 60vh;
-    }
+@media(max-width:600px){
+  .app{
+    flex-direction:column;
+  }
+  .sidebar{
+    width:100%;
+    height:auto;
+  }
+  .preview-area{
+    height:60vh;
+  }
 }
