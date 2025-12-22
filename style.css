@@ -1,206 +1,108 @@
 /* ============================================================
-   COMIAL PRO — STYLE FINAL
+   COMIAL PRO — SCRIPT FINAL ESTÁVEL
 ============================================================ */
 
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+document.addEventListener("DOMContentLoaded", () => {
 
-html, body{
-  width:100%;
-  height:100%;
-  background:#000;
-  overflow:hidden;
-  font-family:Montserrat, sans-serif;
-}
+  const $ = id => document.getElementById(id);
+  let currentTheme = null;
 
-/* =========================
-   VARIÁVEIS (IA CONTROLA)
-========================= */
-:root{
-  --c1:#a855f7;
-  --c2:#22d3ee;
-  --c3:#fb7185;
-  --c4:#fcd34d;
-}
+  /* =========================
+     PRESETS
+  ========================= */
+  const PRESETS = [
+    { name:"Tokyo", c1:"#a855f7", c2:"#22d3ee", c3:"#fb7185", c4:"#fcd34d" },
+    { name:"Vapor", c1:"#ff92c9", c2:"#7bd2f8", c3:"#f9f871", c4:"#c7b0ff" },
+    { name:"Gold",  c1:"#f7d488", c2:"#fce8b0", c3:"#e4bf72", c4:"#fff1cc" }
+  ];
 
-/* =========================
-   LAYOUT
-========================= */
-.app{
-  display:flex;
-  height:100vh;
-}
-
-/* =========================
-   SIDEBAR
-========================= */
-.sidebar{
-  width:300px;
-  background:#111;
-  padding:18px;
-  overflow:auto;
-}
-
-.logo{
-  font-size:26px;
-  font-weight:700;
-  margin-bottom:18px;
-}
-
-.logo span{
-  background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));
-  -webkit-background-clip:text;
-  color:transparent;
-}
-
-/* =========================
-   BOTÕES
-========================= */
-.btn{
-  width:100%;
-  padding:12px;
-  margin-bottom:10px;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
-  background:linear-gradient(90deg,var(--c1),var(--c2));
-  color:#000;
-  font-weight:700;
-}
-
-/* =========================
-   PREVIEW IA
-========================= */
-.preview{
-  width:100%;
-  height:40px;
-  border-radius:10px;
-  margin-top:10px;
-  background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4));
-}
-
-/* =========================
-   PRESETS
-========================= */
-.preset-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  margin-top:12px;
-}
-
-.preset-thumb{
-  height:30px;
-  border-radius:8px;
-  cursor:pointer;
-}
-
-/* =========================
-   PREVIEW ÁREA
-========================= */
-.preview-area{
-  flex:1;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-/* =========================
-   FRAME
-========================= */
-.frame{
-  width:85%;
-  height:85%;
-  border-radius:22px;
-  border:4px solid transparent;
-  background:
-    linear-gradient(#000,#000) padding-box,
-    linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4)) border-box;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#888;
-  font-size:18px;
-}
-/* ============================================================
-   FORMAS GEOMÉTRICAS — COMIAL PRO
-============================================================ */
-
-/* =========================
-   RETÂNGULO ARREDONDADO
-========================= */
-.shape-rect{
-  position:relative;
-  border-radius:28px;
-  border:3px solid transparent;
-
-  background:
-    linear-gradient(#000,#000) padding-box,
-    linear-gradient(
-      90deg,
-      var(--c1),
-      var(--c2),
-      var(--c3),
-      var(--c4)
-    ) border-box;
-
-  box-shadow:
-    0 0 18px rgba(0,0,0,.6),
-    0 0 30px color-mix(in srgb, var(--c1), transparent 70%);
-}
-
-/* =========================
-   LINHA HORIZONTAL
-========================= */
-.shape-line{
-  position:absolute;
-  width:80%;
-  height:4px;
-  border-radius:10px;
-
-  background:linear-gradient(
-    90deg,
-    transparent,
-    var(--c1),
-    var(--c2),
-    var(--c3),
-    transparent
-  );
-
-  box-shadow:
-    0 0 10px var(--c1),
-    0 0 20px color-mix(in srgb, var(--c2), transparent 70%);
-}
-
-/* POSIÇÕES */
-.shape-line.top{
-  top:30px;
-}
-
-.shape-line.bottom{
-  bottom:30px;
-}
-
-/* =========================
-   ANIMAÇÃO SUAVE (SEM FLICKER)
-========================= */
-@keyframes flow{
-  0%{ filter:hue-rotate(0deg); }
-  100%{ filter:hue-rotate(360deg); }
-}
-
-.shape-line{
-  animation:flow 20s linear infinite;
-}
-
-/* =========================
-   RESPONSIVO
-========================= */
-@media(max-width:700px){
-  .shape-line{
-    width:90%;
+  /* =========================
+     IA — GERADOR
+  ========================= */
+  function rand(){
+    return Math.floor(Math.random() * 360);
   }
-}
+
+  function generateAITheme(){
+    return {
+      style: "AI",
+      c1: `hsl(${rand()},100%,60%)`,
+      c2: `hsl(${rand()},100%,60%)`,
+      c3: `hsl(${rand()},100%,60%)`,
+      c4: `hsl(${rand()},100%,60%)`
+    };
+  }
+
+  /* =========================
+     APLICAR TEMA
+  ========================= */
+  function applyTheme(theme){
+    const r = document.documentElement;
+    r.style.setProperty("--c1", theme.c1);
+    r.style.setProperty("--c2", theme.c2);
+    r.style.setProperty("--c3", theme.c3);
+    r.style.setProperty("--c4", theme.c4);
+  }
+
+  function updatePreview(){
+    const p = $("themePreview");
+    if(p){
+      p.style.background = `linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4))`;
+    }
+  }
+
+  /* =========================
+     STORAGE
+  ========================= */
+  function saveTheme(theme){
+    localStorage.setItem("comial-theme", JSON.stringify(theme));
+  }
+
+  function loadTheme(){
+    const s = localStorage.getItem("comial-theme");
+    if(s){
+      currentTheme = JSON.parse(s);
+      applyTheme(currentTheme);
+      updatePreview();
+    }
+  }
+
+  /* =========================
+     BOTÕES
+  ========================= */
+  $("generateAI")?.addEventListener("click", () => {
+    currentTheme = generateAITheme();
+    applyTheme(currentTheme);
+    updatePreview();
+    saveTheme(currentTheme);
+  });
+
+  /* =========================
+     PRESETS GRID
+  ========================= */
+  function buildPresetGrid(){
+    const grid = $("presetsGrid");
+    if(!grid) return;
+
+    PRESETS.forEach(p=>{
+      const d = document.createElement("div");
+      d.className = "preset-thumb";
+      d.style.background = `linear-gradient(90deg,${p.c1},${p.c2},${p.c3},${p.c4})`;
+      d.onclick = ()=>{
+        currentTheme = p;
+        applyTheme(p);
+        updatePreview();
+        saveTheme(p);
+      };
+      grid.appendChild(d);
+    });
+  }
+
+  /* =========================
+     INIT
+  ========================= */
+  buildPresetGrid();
+  loadTheme();
+
+  console.log("✅ COMIAL PRO — SCRIPT OK");
+});
