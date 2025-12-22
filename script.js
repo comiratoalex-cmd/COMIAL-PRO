@@ -186,4 +186,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
       ctx.globalAlpha = 0.08;
       ctx.fillStyle = g;
-      ctx.fillRect(0,0,canvas.widt
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      ctx.globalAlpha = 1;
+
+      requestAnimationFrame(loop);
+    }
+    loop();
+  }
+
+  /* =========================
+     INIT
+  ========================= */
+  buildPresetGrid();
+  loadTheme();
+  initCanvas();
+
+  console.log("✅ COMIAL PRO — SCRIPT FINAL CARREGADO");
+});
