@@ -211,7 +211,23 @@ function loadTheme() {
 }
 
 loadTheme();
+console.log("COMIAL PRO JS OK");
 
-/* ============================================================
-   FIM
-============================================================ */
+const canvas = document.getElementById("bgCanvas");
+if(!canvas){
+  alert("Canvas não encontrado");
+}else{
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let t = 0;
+  function loop(){
+    t += 0.01;
+    ctx.fillStyle = `rgba(${Math.sin(t)*127+128},0,0,0.05)`;
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+
