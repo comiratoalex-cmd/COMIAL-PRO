@@ -1,0 +1,40 @@
+#pulsoid-hud{
+  position:fixed;
+  bottom:30px;
+  right:40px;
+  padding:14px 22px;
+  border-radius:18px;
+  font-size:26px;
+  font-weight:800;
+  background:#000;
+  color:#fff;
+  border:3px solid var(--c2);
+  box-shadow:0 0 25px var(--c2);
+  z-index:999;
+}
+
+#pulsoid-hud.alert{
+  border-color:#ff9f00;
+  box-shadow:0 0 35px #ff9f00;
+}
+
+#pulsoid-hud.danger{
+  border-color:#ff0033;
+  box-shadow:0 0 45px #ff0033;
+}
+
+#pulsoid-hud span{
+  font-size:14px;
+  margin-left:6px;
+  opacity:.7;
+}
+
+@keyframes beat{
+  0%{ transform:scale(1); }
+  50%{ transform:scale(1.15); }
+  100%{ transform:scale(1); }
+}
+
+#pulsoid-hud{
+  animation:beat 1s infinite;
+}

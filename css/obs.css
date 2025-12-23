@@ -1,0 +1,11 @@
+.obs-root{
+  width:100vw;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.obs-frame{
+  width:90%;
+  height:90%;
+}

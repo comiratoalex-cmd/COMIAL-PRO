@@ -1,84 +1,42 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>COMIAL PRO — Overlay Generator</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>COMIAP</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- FONTES -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- CSS PRINCIPAL -->
-  <link rel="stylesheet" href="style.css">
-
-  <!-- VARIÁVEIS DEFAULT -->
-  <style>
-    :root{
-      --c1:#a855f7;
-      --c2:#22d3ee;
-      --c3:#fb7185;
-      --c4:#fcd34d;
-    }
-    body{
-      margin:0;
-      font-family:'Montserrat',sans-serif;
-      background:#000;
-      color:#fff;
-      overflow:hidden;
-    }
-  </style>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/modules/ui.css">
+<link rel="stylesheet" href="css/modules/shapes.css">
+<link rel="stylesheet" href="css/modules/pulsoid.css">
 </head>
-
 <body>
 
-  <!-- CANVAS FUNDO -->
-  <canvas id="bgCanvas"></canvas>
+<div class="app">
 
-  <!-- LAYOUT -->
-  <div class="app">
+  <aside class="sidebar">
+    <h1 class="logo">COMI<span>AP</span></h1>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <h1 class="logo">COMIAL <span>PRO</span></h1>
+    <button id="btnAI" class="btn primary">Gerar Tema IA</button>
+    <div id="themePreview" class="preview"></div>
 
-      <!-- GERADOR IA -->
-      <section class="panel">
-        <h3>🎨 Gerador IA (Cores)</h3>
-        <button id="generateAI" class="btn primary">Gerar Tema IA</button>
-        <div id="themePreview" class="preview"></div>
-      </section>
+    <p class="hint">Clean • Modular • Pulsoid</p>
+  </aside>
 
-      <!-- PRESETS -->
-      <section class="panel">
-        <h3>💎 Presets PRO</h3>
-        <div id="presetsGrid" class="preset-grid"></div>
-      </section>
+  <main class="stage">
+    <div class="line top"></div>
 
-      <!-- EXPORT -->
-      <section class="panel">
-        <h3>📤 Exportar</h3>
+    <div class="frame rect">
+      OVERLAY ATIVO
+    </div>
 
-        <button id="exportViewer" class="btn">Gerar Link Viewer</button>
-        <input id="viewerLink" class="input" readonly>
+    <div class="line bottom"></div>
+  </main>
 
-        <button id="exportOBS" class="btn">Gerar Link OBS</button>
-        <input id="obsLink" class="input" readonly>
+</div>
 
-        <button id="exportPack" class="btn secondary">Exportar Pack</button>
-      </section>
-    </aside>
-
-    <!-- ÁREA PREVIEW GRANDE -->
-    <main class="preview-area">
-      <div class="frame">
-        <span>Overlay ativo</span>
-      </div>
-    </main>
-
-  </div>
-
-  <!-- SCRIPT -->
-  <script src="script.js" defer></script>
-
+<script type="module" src="js/main.js"></script>
 </body>
 </html>
