@@ -1,0 +1,27 @@
+.rect{
+  width:85%;
+  height:85%;
+  border-radius:28px;
+  border:4px solid transparent;
+  background:
+    linear-gradient(#000,#000) padding-box,
+    linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4)) border-box;
+}
+
+.line{
+  position:absolute;
+  width:80%;
+  height:4px;
+  background:linear-gradient(90deg,transparent,var(--c1),var(--c2),transparent);
+}
+
+.line.top{ top:30px; }
+.line.bottom{ bottom:30px; }
+
+.obs{
+  width:100vw;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}

@@ -1,71 +1,20 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>COMIAL PRO — Border OBS</title>
+<title>COMIAP — OBS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-/* RESET TOTAL */
-* {
-  box-sizing: border-box;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  height: 100vh;
-  background: transparent;
-  overflow: hidden;
-}
-
-/* ==========================
-   COMIAL PRO — BORDER
-   ========================== */
-
-#border {
-  position: fixed;
-  inset: 20px;
-
-  /* arredondamento */
-  border-radius: 22px;
-
-  /* espessura da borda */
-  padding: 6px;
-
-  /* gradiente PRO */
-  background: linear-gradient(
-    90deg,
-    #7CFF00,
-    #00C897,
-    #007BFF
-  );
-
-  /* centro vazado */
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-
-  /* animação */
-  animation: hue 6s linear infinite;
-
-  /* suavização */
-  will-change: filter;
-}
-
-/* animação do gradiente */
-@keyframes hue {
-  to { filter: hue-rotate(360deg); }
-}
-</style>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/modules/shapes.css">
+<link rel="stylesheet" href="css/modules/pulsoid.css">
 </head>
-
 <body>
 
-<!-- BORDA -->
-<div id="border"></div>
+<div class="obs">
+  <div class="frame rect"></div>
+</div>
 
+<script type="module" src="js/obs/obs-theme.js"></script>
 </body>
 </html>

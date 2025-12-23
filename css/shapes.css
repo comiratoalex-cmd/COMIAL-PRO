@@ -1,0 +1,15 @@
+.shape-rect{
+  border-radius:28px;
+  border:4px solid transparent;
+  background:
+    linear-gradient(#000,#000) padding-box,
+    linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4)) border-box;
+}
+.shape-line{
+  position:absolute;
+  width:80%;
+  height:4px;
+  background:linear-gradient(90deg,transparent,var(--c1),var(--c2),transparent);
+}
+.shape-line.top{ top:30px; }
+.shape-line.bottom{ bottom:30px; }
